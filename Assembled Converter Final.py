@@ -1,4 +1,5 @@
-# Temperature Convertor code to set up history gui
+# Jessica Allen
+# Temperature Convertor
 from tkinter import *
 from functools import partial  # To prevent unwanted windows
 
@@ -47,13 +48,13 @@ class Converter:
         self.conversion_buttons_frame.grid(row=3, pady=10)
 
         self.to_c_button = Button(self.conversion_buttons_frame,
-                                  text="To Centigrade", font="Arial 10 bold",
+                                  text="To Centigrade", font="Arial 11 bold",
                                   highlightbackground="Khaki1", padx=10, pady=10,
                                   command=lambda: self.temp_convert(-459))
         self.to_c_button.grid(row=0, column=0)
 
         self.to_f_button = Button(self.conversion_buttons_frame,
-                                  text="To Fahrenheit", font="Arial 10 bold",
+                                  text="To Fahrenheit", font="Arial 11 bold",
                                   highlightbackground="Orchid1", padx=10, pady=10,
                                   command=lambda: self.temp_convert(-273))
         self.to_f_button.grid(row=0, column=1)
@@ -69,16 +70,20 @@ class Converter:
         self.hist_help_frame = Frame(self.converter_frame)
         self.hist_help_frame.grid(row=5, pady=10)
 
-        self.history_button = Button(self.hist_help_frame, font="Arial 12 bold",
-                                     text="Calculation History", width=15, fg="black",
+        self.history_button = Button(self.hist_help_frame,
+                                     text="Calculation History",
+                                     font="Arial 14 bold",
+                                     padx=10, pady=10,
                                      command=lambda: self.history(self.all_calcs))
         self.history_button.grid(row=0, column=0)
 
         if len(self.all_calcs) == 0:
             self.history_button.config(state=DISABLED)
 
-        self.help_button = Button(self.hist_help_frame, font="Arial 12 bold",
-                                  text="Help", width=5, command=self.help)
+        self.help_button = Button(self.hist_help_frame, text="Help",
+                                  font="Arial 14 bold",
+                                  padx=10, pady=10,
+                                  command=self.help)
         self.help_button.grid(row=0, column=1)
 
     def history(self, calc_history):
@@ -156,7 +161,7 @@ class Converter:
 class History:
     def __init__(self, partner, calc_history):
 
-        background = "#a9ef99"  # Pale green
+        background = "#74D8A1"
 
         # Disable history button
         partner.history_button.config(state=DISABLED)
@@ -186,7 +191,7 @@ class History:
                                         "file of all your calculations for " 
                                         "this session", wrap=250,
                                   font="arial 10 italic",
-                                  justify=LEFT, width=40, bg=background, fg="maroon",
+                                  justify=CENTER, width=40, bg=background, fg="#1E8449",
                                   padx=10, pady=10)
         self.history_text.grid(row=1)
 
@@ -220,13 +225,17 @@ class History:
 
         # Export Button
         self.export_button = Button(self.export_dismiss_frame, text="Export",
-                                    font="Arial 12 bold", command=lambda: self.export(calc_history))
+                                    font="Arial 12 bold",
+                                    padx=10, pady=10,
+                                    command=lambda: self.export(calc_history))
         self.export_button.grid(row=0, column=0)
 
 
         # Dismiss Button
         self.dismiss_button = Button(self.export_dismiss_frame, text="Dismiss",
-                                    font="Arial 12 bold", command=partial(self.close_history, partner))
+                                    font="Arial 12 bold",
+                                    padx=10, pady=10,
+                                    command=partial(self.close_history, partner))
         self.dismiss_button.grid(row=0, column=1)
 
     def export(self, calc_history):
@@ -268,7 +277,7 @@ class Export:
         self.export_text = Label(self.export_frame, text="Enter a filename in the box below "
                                          "and press the save button to save your "
                                          "calculation history to a text file.",
-                                 justify=LEFT, width=40, bg=background, wrap=250)
+                                 justify=CENTER, width=40, bg=background, wrap=250)
         self.export_text.grid(column=0, row=1)
 
         # Warning text (label, row 2)
@@ -279,7 +288,7 @@ class Export:
                                  "be replaced with "
                                  "your calculation "
                                  "history",
-                                 justify=LEFT, bg="#ffafaf", fg="maroon",
+                                 justify=CENTER, bg="#ffafaf", fg="maroon",
                                  font="Arial 10 italic", wrap=225, padx=10,
                                  pady=10)
         self.export_text.grid(row=2, pady=10)
@@ -300,10 +309,14 @@ class Export:
 
         # Save and cancel buttons (row 0 of save_cancel_frame)
         self.save_button = Button(self.save_cancel_frame, text="Save",
+                                  font="Arial 12 bold",
+                                  padx=10, pady=10,
                                   command=partial(lambda: self.save_history(partner, calc_history)))
         self.save_button.grid(row=0, column=0)
 
         self.cancel_button = Button(self.save_cancel_frame, text="Cancel",
+                                    font="Arial 12 bold",
+                                    padx=10, pady=10,
                                     command=partial(self.close_export, partner))
         self.cancel_button.grid(row=0, column=1)
 
@@ -366,7 +379,7 @@ class Export:
 class Help:
     def __init__(self, partner):
 
-        background = "lavender"
+        background = "lightpink"
 
         # Disable help button
         partner.help_button.config(state=DISABLED)
@@ -395,7 +408,9 @@ class Help:
 
         # Dismiss button (row 2)
         self.dismiss_button = Button(self.help_frame, text="Dismiss",
-                                     width=10, highlightbackground="lavender", font="arial 14 bold",
+                                     highlightbackground="lightpink",
+                                     font="arial 14 bold",
+                                     padx=10, pady=10,
                                      command=partial(self.close_help, partner))
         self.dismiss_button.grid(row=2, pady=10)
 
@@ -411,4 +426,3 @@ if __name__ == "__main__":
     root.title("Temperature Converter")
     something = Converter()
     root.mainloop()
-
